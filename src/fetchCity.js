@@ -1,8 +1,8 @@
 async function fetchCity(city) {
-  const yacdn = `https://yacdn.org/proxy/`
+  const yacdn = `https://yacdn.org/proxy/`;
   const url = `${yacdn}https://www.metaweather.com/api/location/search/?query=${city.toLowerCase()}`;
 
-  const data = await fetch(url).then(data => data.json());
+  const data = await fetch(url).then(result => result.json());
   return data[0].woeid;
 }
 
