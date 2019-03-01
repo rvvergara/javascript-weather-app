@@ -37,7 +37,7 @@ const weatherTodayCard = (data, city) => {
 
   const todayLis = [...document.getElementsByClassName("todayLi")];
 
-  [min_temp, max_temp, humidity].forEach((data, i) => todayLis[i].innerText = data);
+  [max_temp, min_temp, humidity].forEach((data, i) => todayLis[i].innerText = data);
 };
 
 // 2. For cards for days2 - 5
