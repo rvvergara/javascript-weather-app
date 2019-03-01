@@ -8,7 +8,10 @@ async function fetchCityData(city) {
   const woeid = await fetchCity(city);
   const url = `${yacdn}https://www.metaweather.com/api/location/${woeid}`;
 
-  const data = await fetch(url).then(res => res.json());
+  const data = await fetch(url).then((res) => {
+    document.getElementById("loading").setAttribute("class", "d-none");
+    return res.json();
+  });
 
   const {
     weather_state_abbr,

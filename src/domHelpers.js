@@ -7,10 +7,9 @@ const showData = (dataObj) => {
 
   weather.forEach((data, i) => {
     if (i === 0) {
-      console.log(spans[i]);
+      let weatherStatusImgUrl = `<img src="https://www.metaweather.com/static/img/weather/png/64/${data}.png" alt="${data}">`;
 
-      spans[i].innerHTML = `<img src="https://www.metaweather.com/static/img/weather/png/64/${data}.png" alt="${data}">`;
-
+      spans[i].innerHTML = weatherStatusImgUrl;
     } else if (i === 1) {
       spans[i].innerText = parseDate(data);
     } else {
@@ -24,6 +23,11 @@ const parseDate = (date) => {
   return `${weatherDate.toDateString()} ${weatherDate.getHours()}:${weatherDate.getMinutes()}`
 };
 
+const loading = () => {
+  document.getElementById("loading").removeAttribute("class");
+};
+
 export {
   showData,
+  loading,
 };
