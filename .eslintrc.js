@@ -17,6 +17,7 @@ module.exports = {
         "indent": 0,
         "eol-last": 0,
         "no-use-before-define": 0,
-        "camelcase": 0
+        "camelcase": 0,
+        "no-unused-expressions": 0
     }
 };
