@@ -27,13 +27,18 @@ async function fetchCityData(city) {
 
 function showData(dataObj) {
   // Assign dataObj elements in DOM
-  const ul = document.getElementsByTagName("ul")[0];
+  const spans = [...document.getElementsByTagName("span")];
   const weather = [];
   for (let data in dataObj) {
     weather.push(dataObj[data]);
   }
 
+  weather.forEach((data, i) => spans[i].innerText = i === 1 ? parseDate(data) : data);
 }
 
+function parseDate(date) {
+  const weatherDate = new Date(date);
+  return `${weatherDate.toDateString()} ${weatherDate.getHours()}:${weatherDate.getMinutes()}`
+}
 
 export default fetchCityData;
