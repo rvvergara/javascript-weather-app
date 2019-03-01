@@ -13,21 +13,9 @@ async function fetchCityData(city) {
     return res.json();
   });
 
-  const {
-    weather_state_abbr,
-    created,
-    max_temp,
-    min_temp,
-    humidity,
-  } = data.consolidated_weather[0];
+  const [weatherToday, day2, day3, day4, day5] = data.consolidated_weather
 
-  showData({
-    weather_state_abbr,
-    created,
-    max_temp,
-    min_temp,
-    humidity,
-  });
+  showData([weatherToday, day2, day3, day4, day5, data.title]);
 }
 
 export default fetchCityData;
