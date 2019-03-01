@@ -1,3 +1,7 @@
+const weatherIcons = {
+
+};
+
 const showData = (dataObj) => {
   // Assign dataObj elements in DOM
   const spans = [...document.getElementsByTagName("span")];
