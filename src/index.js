@@ -5,6 +5,7 @@ import fetchCityData from './fetchCityData';
 
 document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
   e.preventDefault();
+  document.getElementById('error').setAttribute("class", 'd-none');
   const cityName = document.getElementById("cityNameInput").value;
   fetchCityData(cityName);
   // Remove invisible class
