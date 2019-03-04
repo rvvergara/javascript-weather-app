@@ -38,10 +38,10 @@ const weatherCard = (data, index, cardElements) => {
   // console.log(data);
   cardElements.foreCastDates[index].innerText = parseDate(data.applicable_date);
   cardElements.weatherStateImgs[index].setAttribute("src", `https://www.metaweather.com/static/img/weather/png/${data.weather_state_abbr}.png`);
-  cardElements.theTemps[index].innerText = data.the_temp;
-  cardElements.maxTemps[index].innerText = data.max_temp;
-  cardElements.minTemps[index].innerText = data.min_temp;
-  cardElements.humidityDisplays[index].innerText = data.humidity;
+  cardElements.theTemps[index].innerText = Math.round(data.the_temp);
+  cardElements.maxTemps[index].innerText = Math.round(data.max_temp);
+  cardElements.minTemps[index].innerText = Math.round(data.min_temp);
+  cardElements.humidityDisplays[index].innerText = Math.round(data.humidity);
 };
 
 // 2. For cards for days2 - 5
