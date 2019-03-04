@@ -3,4 +3,4 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/main.css';
 import fetchCityData from './fetchCityData';
 
-fetchCityData("San");
+fetchCityData("dhaka");
