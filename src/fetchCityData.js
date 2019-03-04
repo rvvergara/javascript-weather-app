@@ -15,7 +15,7 @@ async function fetchCityData(city) {
 
   // const [weatherToday, day2, day3, day4, day5] = data.consolidated_weather
 
-  showData([data.title, data.consolidated_weather.slice(0, 4)]);
+  showData([data.title, data.consolidated_weather.slice(0, 5)]);
 }
 
 export default fetchCityData;

@@ -13,8 +13,7 @@
   <div class="container" id="mainBody">
     <form action="">
       <div class="input-group my-3">
-        <input type="text" class="form-control" placeholder="Type your city here" aria-label="Recipient's username"
-          aria-describedby="basic-addon2">
+        <input type="text" class="form-control" placeholder="Type your city here" id="cityNameInput">
         <div class="input-group-append">
           <button class="btn btn-primary input-group-text" id="basic-addon2">Fetch weather</button>
         </div>
@@ -38,15 +37,15 @@
                   <div class="float-left ml-3">
                     <div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="temp" id="celcious" value="option1">
-                        <label class="form-check-label" for="celcious">C</label>
+                        <input class="form-check-input" type="radio" name="temp" id="celsius" value="option1" checked>
+                        <label class="form-check-label" for="celsius">C</label>
                       </div>
                       <div class="form-check form-check-inline">
                         <input class="forday5m-check-input" type="radio" name="temp" id="fahrenheit" value="f">
                         <label class="form-check-label" for="fahrenheit">F</label>
                       </div>
                     </div>
-                    <h3 class="the-temp">32</h3>
+                    <h3 class="the-temp">32 <span class="temp-unit"></span></h3>
                   </div>
                 </div>
               </div>
@@ -73,7 +72,7 @@
                 <div class="next-weather">
                   <img src="https://www.metaweather.com/static/img/weather/png/lc.png" alt="" class="float-left w-25 weather-state">
                   <div class="float-left ml-3">
-                    <h3 class="the-temp">32</h3>
+                    <h3 class="the-temp">32 <span class="temp-unit"></span></h3>
                   </div>
                 </div>
               </div>
@@ -99,7 +98,7 @@
                 <div class="next-weather">
                   <img src="https://www.metaweather.com/static/img/weather/png/lc.png" alt="" class="float-left w-25 weather-state">
                   <div class="float-left ml-3">
-                    <h3 class="the-temp">32</h3>
+                    <h3 class="the-temp">32 <span class="temp-unit"></span></h3>
                   </div>
                 </div>
               </div>
@@ -125,7 +124,7 @@
                 <div class="next-weather">
                   <img src="https://www.metaweather.com/static/img/weather/png/lc.png" alt="" class="float-left w-25 weather-state">
                   <div class="float-left ml-3">
-                    <h3 class="the-temp">32</h3>
+                    <h3 class="the-temp">32<span class="temp-unit"></span></h3>
                   </div>
                 </div>
               </div>
@@ -151,7 +150,7 @@
                 <div class="next-weather">
                   <img src="https://www.metaweather.com/static/img/weather/png/lc.png" alt="" class="float-left w-25 weather-state">
                   <div class="float-left ml-3">
-                    <h3 class="the-temp">32</h3>
+                    <h3 class="the-temp">200<span class="temp-unit"></span></h3>
                   </div>
                 </div>
               </div>

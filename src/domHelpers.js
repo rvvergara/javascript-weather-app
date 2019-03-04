@@ -2,6 +2,20 @@ import {
   parse
 } from "path";
 
+let tempUnitC = true;
+
+const toggleTempUnit = () => {
+  tempUnitC = !tempUnitC;
+  console.log(tempUnitC);
+}
+
+[...document.getElementsByName("temp")].forEach(radio => {
+  radio.addEventListener("change", e => {
+    e.stopPropagation();
+    // toggleTempUnit();
+  });
+});
+
 const showData = (dataArr) => {
   // Generate dynamic HTML for big card
   // Assign dataObj elements in DOM
@@ -13,14 +27,12 @@ const showData = (dataArr) => {
     minTemps: [...document.getElementsByClassName("min-temp")],
     maxTemps: [...document.getElementsByClassName("max-temp")],
     humidityDisplays: [...document.getElementsByClassName("humidity")],
+    unitSpans: [...document.getElementsByClassName("temp-unit")],
   };
-
   dataArr[1].forEach((data, index) => {
     weatherCard(data, index, cardElements);
   });
 };
-
-
 
 // We need a function that generates the html structure for the data
 
@@ -36,28 +48,38 @@ const weatherCard = (data, index, cardElements) => {
     applicable_date,
   } = data;
   // console.log(data);
-  cardElements.foreCastDates[index].innerText = parseDate(data.applicable_date);
-  cardElements.weatherStateImgs[index].setAttribute("src", `https://www.metaweather.com/static/img/weather/png/${data.weather_state_abbr}.png`);
-  cardElements.theTemps[index].innerText = Math.round(data.the_temp);
-  cardElements.maxTemps[index].innerText = Math.round(data.max_temp);
-  cardElements.minTemps[index].innerText = Math.round(data.min_temp);
-  cardElements.humidityDisplays[index].innerText = Math.round(data.humidity);
+  cardElements.foreCastDates[index].innerText = parseDate(applicable_date);
+  cardElements.weatherStateImgs[index].setAttribute("src", `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`);
+  // Temperature displays
+  tempDisplays({
+    the_temp,
+    min_temp,
+    max_temp,
+  }, cardElements, index);
+
+  cardElements.humidityDisplays[index].innerText = Math.round(humidity);
 };
 
-// 2. For cards for days2 - 5
-// const otherDataCard = (data) => {
-//   let divCard = [...document.getElementsByClassName("next-weather-card")];
-//   // 1. Iterate thru each div.card, forEach(div, i)
-//   divCard.forEach((div, i) => {
-//     // 2. For p.next-dates innertext is data[i].created
+const tempDisplays = (tempObj, cardElements, index) => {
+  const {
+    the_temp,
+    min_temp,
+    max_temp,
+  } = tempObj;
+  if (tempUnitC) {
+    let suffix = "&#176;C";
+    cardElements.theTemps[index].innerHTML = Math.round(the_temp) + suffix;
+    cardElements.maxTemps[index].innerText = Math.round(max_temp);
+    cardElements.minTemps[index].innerText = Math.round(min_temp);
+  } else {
+    let suffix = "&#176;F";
+    cardElements.theTemps[index].innerHTML = Math.round(tempToF(the_temp)) + suffix;
+    cardElements.maxTemps[index].innerText = Math.round(tempToF(max_temp));
+    cardElements.minTemps[index].innerText = Math.round(tempToF(min_temp));
+  }
+};
 
-//     // 3. For div.next-weather img the src for img is related to dat[i].weather_state_abbr
-//     // 4. For div.next-weather h3 innertext is data[i].the_temp
-//     // 5. next-li-maxtemp innertext will be data[i].max_temp
-//     // 6. next-li-min-temp innerText will be data[i].min_temp
-//     // 7. next-li-humidity innerText will be data[i].humidity
-//   });
-// }
+const tempToF = temp => 9 / 5 * (temp) + 32;
 
 const parseDate = (date) => {
   const weatherDate = new Date(date);
@@ -71,4 +93,5 @@ const loading = () => {
 export {
   showData,
   loading,
+  tempDisplays
 };
