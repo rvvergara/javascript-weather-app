@@ -1,16 +1,26 @@
 const showData = (dataArr) => {
   // Generate dynamic HTML for big card
   // Assign dataObj elements in DOM
-  weatherTodayCard(dataArr[0], dataArr[5]);
-  dataArr.slice(1).forEach((data) => {
-    otherDataCard(data);
+  const cardElements = {
+    foreCastDates: [...document.getElementsByClassName("forecast-date")],
+    weatherStateImg: [...document.getElementsByClassName("weather-state")],
+    theTemps: [...document.getElementsByClassName("the-temp")],
+    minTemps: [...document.getElementsByClassName("min-temp")],
+    maxTemps: [...document.getElementsByClassName("max-temp")],
+    humidityDisplays: [...document.getElementsByClassName("humidity")],
+  };
+
+  dataArr.forEach((data, index) => {
+    weatherCard(data, index, cardElements);
   });
 };
+
+
 
 // We need a function that generates the html structure for the data
 
 // 1. For the big card
-const weatherTodayCard = (data, city) => {
+const weatherCard = (data, index, cardElements) => {
   // We need to extract elements from data that we need
   const {
     weather_state_abbr,
@@ -20,24 +30,7 @@ const weatherTodayCard = (data, city) => {
     humidity,
     created,
   } = data;
-  document.getElementsByTagName("img")[0].setAttribute("src", `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`);
 
-  const todayTemp = document.getElementById("todayTemp");
-
-
-  todayTemp.innerText = the_temp;
-
-  const cityName = document.getElementById("cityName");
-
-  cityName.innerText = city;
-
-  const todayDate = document.getElementById("today-date");
-
-  todayDate.innerText = parseDate(new Date(created));
-
-  const todayLis = [...document.getElementsByClassName("todayLi")];
-
-  [max_temp, min_temp, humidity].forEach((data, i) => todayLis[i].innerText = data);
 };
 
 // 2. For cards for days2 - 5
