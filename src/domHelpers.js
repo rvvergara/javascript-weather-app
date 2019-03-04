@@ -1,7 +1,3 @@
-import {
-  parse
-} from "path";
-
 let tempUnitC = true;
 let fetchedWeatherData;
 const toggleTempUnit = () => {
