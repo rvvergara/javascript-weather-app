@@ -14,7 +14,7 @@ async function fetchCityData(city) {
     }
 
     const data = await fetch(url).then((res) => {
-      document.getElementById("loading").setAttribute("class", "d-none");
+      document.getElementById("loading").setAttribute("class", "hidden");
 
       if (document.getElementsByClassName("invisible").length > 0) {
         document.getElementsByClassName("invisible")[0].classList.remove("invisible");
@@ -36,7 +36,7 @@ async function fetchCityData(city) {
 
 const displayErrorMsg = () => {
   document.getElementsByClassName('row')[0].classList.add('invisible');
-  document.getElementById('loading').classList.add('d-none');
+  document.getElementById('loading').classList.add('hidden');
   document.getElementById('error').classList.remove('d-none');
 }
 
