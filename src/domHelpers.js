@@ -18,7 +18,7 @@ const weatherTodayCard = (data, city) => {
     min_temp,
     max_temp,
     humidity,
-    created
+    created,
   } = data;
   document.getElementsByTagName("img")[0].setAttribute("src", `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`);
 
@@ -42,7 +42,17 @@ const weatherTodayCard = (data, city) => {
 
 // 2. For cards for days2 - 5
 const otherDataCard = (data) => {
+  let divCard = [...document.getElementsByClassName("next-weather-card")];
+  // 1. Iterate thru each div.card, forEach(div, i)
+  divCard.forEach((div, i) => {
+    // 2. For p.next-dates innertext is data[i].created
 
+    // 3. For div.next-weather img the src for img is related to dat[i].weather_state_abbr
+    // 4. For div.next-weather h3 innertext is data[i].the_temp
+    // 5. next-li-maxtemp innertext will be data[i].max_temp
+    // 6. next-li-min-temp innerText will be data[i].min_temp
+    // 7. next-li-humidity innerText will be data[i].humidity
+  });
 }
 
 const parseDate = (date) => {
