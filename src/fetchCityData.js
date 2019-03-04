@@ -8,8 +8,19 @@ async function fetchCityData(city) {
   const woeid = await fetchCity(city);
   const url = `${yacdn}https://www.metaweather.com/api/location/${woeid}`;
 
+  if (document.getElementsByClassName("animate").length > 0) {
+    document.getElementsByClassName("animate")[0].classList.remove("animate");
+  }
+
   const data = await fetch(url).then((res) => {
     document.getElementById("loading").setAttribute("class", "d-none");
+
+    if (document.getElementsByClassName("invisible").length > 0) {
+      document.getElementsByClassName("invisible")[0].classList.remove("invisible");
+    }
+
+    document.getElementsByClassName("row")[0].classList.add("animate");
+
     return res.json();
   });
 

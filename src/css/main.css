@@ -2,6 +2,10 @@
   width: 10% !important;
 }
 
+.invisible {
+  opacity: 0;
+}
+
 .animate {
   opacity: 0;
   animation: image-change 2s linear 0.15s 1 forwards;

@@ -7,5 +7,6 @@ document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
   e.preventDefault();
   const cityName = document.getElementById("cityNameInput").value;
   fetchCityData(cityName);
+  // Remove invisible class
   e.target.reset();
 });

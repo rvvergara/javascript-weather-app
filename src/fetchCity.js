@@ -7,9 +7,10 @@ async function fetchCity(city) {
   const url = `${yacdn}https://www.metaweather.com/api/location/search/?query=${city.toLowerCase()}`;
 
   const data = await fetch(url).then((result) => {
-    loading();
-    return result.json();
-  });
+      loading();
+      return result.json();
+    })
+    .then(err => console.log("No city like that!"));
   return data[0].woeid;
 }
 
