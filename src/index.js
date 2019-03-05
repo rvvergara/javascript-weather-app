@@ -6,6 +6,10 @@ import {
   loading,
 } from './domHelpers';
 
+const cityNameDisplay = document.getElementById('city-name');
+
+const mainDataRow = document.getElementsByClassName("row")[0];
+
 const [weatherSearchUrl, locationSearchUrl] = ["https://www.metaweather.com/api/location/", "https://www.metaweather.com/api/location/search/?query="];
 
 const corsProxyUrl = `https://yacdn.org/proxy/`;

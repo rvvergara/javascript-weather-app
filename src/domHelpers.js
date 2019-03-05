@@ -7,10 +7,6 @@ import fetchData from './fetchCityData'
 // NECESSARY DOM ELEMENTS
 const loadingDiv = document.getElementById("loading");
 
-const cityNameDisplay = document.getElementById('city-name');
-
-const mainDataRow = document.getElementsByClassName("row")[0];
-
 const tempRadioBtns = [...document.getElementsByName("temp")];
 
 const foreCastDates = [...document.getElementsByClassName("forecast-date")];
@@ -41,28 +37,23 @@ const toggleTempUnit = () => {
   tempUnitC = !tempUnitC;
 };
 
-tempRadioBtns.forEach(radio => {
-  radio.addEventListener("change", e => {
+tempRadioBtns.forEach((radio) => {
+  radio.addEventListener("change", (e) => {
     e.stopPropagation();
     toggleTempUnit();
-    fetchedWeatherData.forEach((data, index) =>
-      tempDisplays(data, displayElements, index)
-    );
+    fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
   });
 });
 
-const showData = (dataArr, mainDataRow, cityNameDisplay) => {
-  // Generate dynamic HTML for big card
-  // Assign dataObj elements in DOM
-  fetchedWeatherData = dataArr[1];
-  cityNameDisplay.innerText = dataArr[0];
+const showData = (dataArr, row, cityName) => {
+  [fetchedWeatherData, cityName.innerText] = [dataArr[1], dataArr[0]];
+
   const cardElements = displayElements;
 
   // Remove invisible and animate classes
-  if ([...mainDataRow.classList.includes("invisible")]) {
-    mainDataRow.classList.remove("invisible");
-  }
-  mainDataRow.classList.add("animate");
+  row.classList.remove("invisible");
+
+  row.classList.add("animate");
   dataArr[1].forEach((data, index) => {
     weatherCard(data, index, cardElements);
   });
@@ -93,22 +84,21 @@ const weatherCard = (data, index, cardElements) => {
   tempDisplays({
       the_temp,
       min_temp,
-      max_temp
+      max_temp,
     },
     cardElements,
-    index
-  );
+    index, );
 
   cardElements.humidityDisplays[index].innerText = Math.round(humidity);
 };
 
-const tempDisplays = (tempObj, cardElements, index) => {
+const tempDisplays = (tempObj, cardElements, index, isCelsius) => {
   const {
     the_temp,
     min_temp,
-    max_temp
+    max_temp,
   } = tempObj;
-  const suffix = tempUnitC ? "&#176;C" : "&#176;F";
+  const suffix = isCelsius ? "&#176;C" : "&#176;F";
 
   const tempElements = [cardElements.theTemps, cardElements.maxTemps, cardElements.minTemps];
   const tempData = [the_temp, max_temp, min_temp];
@@ -117,8 +107,8 @@ const tempDisplays = (tempObj, cardElements, index) => {
   });
 };
 
-const tempToF = (temp, tempUnitC) => {
-  return !tempUnitC ? (9 / 5) * temp + 32 : temp;
+const tempToF = (temp, isCelsius) => {
+  return !isCelsius ? (9 / 5) * temp + 32 : temp;
 };
 
 const parseDate = (date, index) => {
@@ -135,19 +125,19 @@ const loading = () => {
 };
 
 function fetchCityData(...args) {
-  fetchData(...args).then(data => {
-    const [mainDataRow, cityNameDisplay] = [
+  fetchData(...args).then((data) => {
+    const [row, cityName] = [
       [...args][5],
-      [...args][6]
+      [...args][6],
     ];
     // Remove fetch data... message
     loading();
     // Fill relevant dom elements with data
-    showData([data.title, data.consolidated_weather.slice(0, 5)], mainDataRow, cityNameDisplay);
+    showData([data.title, data.consolidated_weather.slice(0, 5)], row, cityName);
   }).catch(() => {
     displayErrorMsg();
   });
-};
+}
 
 const displayErrorMsg = () => {
   document.getElementsByClassName('row')[0].classList.add('invisible');
