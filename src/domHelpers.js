@@ -81,24 +81,18 @@ const tempDisplays = (tempObj, cardElements, index) => {
     min_temp,
     max_temp
   } = tempObj;
-  if (tempUnitC) {
-    let suffix = "&#176;C";
-    cardElements.theTemps[index].innerHTML = Math.round(the_temp) + suffix;
-    cardElements.maxTemps[index].innerText = Math.round(max_temp);
-    cardElements.minTemps[index].innerText = Math.round(min_temp);
-  } else {
-    let suffix = "&#176;F";
-    cardElements.theTemps[index].innerHTML =
-      Math.round(tempToF(the_temp)) + suffix;
-    cardElements.maxTemps[index].innerText = Math.round(tempToF(max_temp));
-    cardElements.minTemps[index].innerText = Math.round(tempToF(min_temp));
-  }
+  const suffix = tempUnitC ? "&#176;C" : "&#176;F";
+  cardElements.theTemps[index].innerHTML = Math.round(tempToF(the_temp, tempUnitC)) + suffix;
+  cardElements.maxTemps[index].innerHTML = Math.round(tempToF(max_temp, tempUnitC)) + suffix;
+  cardElements.minTemps[index].innerHTML = Math.round(tempToF(min_temp, tempUnitC)) + suffix;
 };
 
-const tempToF = temp => (9 / 5) * temp + 32;
+const tempToF = (temp, tempUnitC) => {
+  return !tempUnitC ? (9 / 5) * temp + 32 : temp;
+};
 
 const parseDate = (date, index) => {
-  const weatherDate = index == 0 ? format(new Date(date), "dddd MMMM DD, YYYY HH:mm A") : format(new Date(date), "dddd");
+  const weatherDate = index == 0 ? format(new Date(date), "dddd MMMM DD, YYYY") : format(new Date(date), "dddd");
   return weatherDate;
 };
 
