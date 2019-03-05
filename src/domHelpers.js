@@ -6,7 +6,6 @@ import fetchData from './fetchCityData'
 
 // NECESSARY DOM ELEMENTS
 
-
 const tempRadioBtns = [...document.getElementsByName("temp")];
 
 const foreCastDates = [...document.getElementsByClassName("forecast-date")];

@@ -6,39 +6,23 @@ import {
   submitCallback,
 } from './domHelpers';
 
-const cityNameInput = document.getElementById("cityNameInput");
+const constants = require('./constants');
 
-const weatherSearchForm = document.getElementsByTagName("form")[0];
-
-const errorDiv = document.getElementById('error');
-
-const cityNameDisplay = document.getElementById('city-name');
-
-const loadingDiv = document.getElementById("loading");
-
-const mainDataRow = document.getElementsByClassName("row")[0];
-
-
-
-const [weatherSearchUrl, locationSearchUrl] = ["https://www.metaweather.com/api/location/", "https://www.metaweather.com/api/location/search/?query="];
-
-const corsProxyUrl = `https://yacdn.org/proxy/`;
-
-weatherSearchForm.addEventListener("submit", (e) => {
+constants.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // Show fetching weather data text
-  loading(loadingDiv);
+  loading(constants.loadingDiv);
   // Parameters passed to callback
   const submitCallbackParams = [
-    mainDataRow,
-    cityNameDisplay,
-    cityNameInput,
-    locationSearchUrl,
-    weatherSearchUrl,
+    constants.mainDataRow,
+    constants.cityNameDisplay,
+    constants.cityNameInput,
+    constants.locationSearchUrl,
+    constants.weatherSearchUrl,
     "woeid",
-    corsProxyUrl,
-    errorDiv,
-    loadingDiv,
+    constants.corsProxyUrl,
+    constants.errorDiv,
+    constants.loadingDiv,
   ];
 
   submitCallback(submitCallbackParams);
