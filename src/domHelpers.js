@@ -3,7 +3,12 @@ import {
 } from 'date-fns';
 import fetchData from './fetchCityData'
 
+
 // NECESSARY DOM ELEMENTS
+const loadingDiv = document.getElementById("loading");
+
+const mainDataRow = document.getElementsByClassName("row")[0];
+
 const tempRadioBtns = [...document.getElementsByName("temp")];
 
 const foreCastDates = [...document.getElementsByClassName("forecast-date")];
@@ -50,6 +55,12 @@ const showData = (dataArr) => {
   fetchedWeatherData = dataArr[1];
   document.getElementById("cityName").innerText = dataArr[0];
   const cardElements = displayElements;
+
+  // Remove invisible and animate classes
+  if ([...mainDataRow.classList.includes("invisible")]) {
+    mainDataRow.classList.remove("invisible");
+  }
+  mainDataRow.classList.add("animate");
   dataArr[1].forEach((data, index) => {
     weatherCard(data, index, cardElements);
   });
@@ -114,12 +125,21 @@ const parseDate = (date, index) => {
 };
 
 const loading = () => {
-  document.getElementById("loading").removeAttribute("class");
+  if ([...loadingDiv.classList].includes("hidden")) {
+    loadingDiv.classList.remove("hidden");
+  } else {
+    loadingDiv.classList.add("hidden");
+  }
 };
 
 function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property, proxyUrl) {
   // Fetch city
-  fetchData(city, locationSearchUrl, weatherFetchUrl, property, proxyUrl).then(data => showData([data.title, data.consolidated_weather.slice(0, 5)]));
+  fetchData(city, locationSearchUrl, weatherFetchUrl, property, proxyUrl).then(data => {
+    // Remove fetch data... message
+    loading();
+    // Fill relevant dom elements with data
+    showData([data.title, data.consolidated_weather.slice(0, 5)]);
+  });
 };
 
 const displayErrorMsg = () => {
