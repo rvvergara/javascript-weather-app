@@ -8,14 +8,10 @@ import {
 } from './elements';
 
 
-const toggleTempUnit = (isCelsius) => {
-  isCelsius = !isCelsius;
-};
-
 elements.tempRadioBtns.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     e.stopPropagation();
-    toggleTempUnit(elements.tempUnitC);
+    elements.tempUnitC = !elements.tempUnitC;
     elements.fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
   });
 });
