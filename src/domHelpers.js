@@ -87,7 +87,7 @@ const loading = (loadDiv) => {
   }
 };
 
-function fetchCityData(...args) {
+function fetchAndShowData(...args) {
   fetchData(...args).then((data) => {
     const [row, cityName, loadDiv] = [
       [...args][5],
@@ -122,7 +122,7 @@ const submitCallback = (argsArr) => {
   row.classList.remove("animate");
   // If there are any error messages visible just add class d-none to it
   errDiv.setAttribute("class", 'd-none');
-  fetchCityData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay, errDiv, loadDiv);
+  fetchAndShowData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay, errDiv, loadDiv);
 };
 
 export {

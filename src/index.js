@@ -12,7 +12,6 @@ import {
   displayElements,
 } from './elements';
 
-
 elements.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // Show fetching weather data text
