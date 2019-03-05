@@ -6,7 +6,7 @@ import {
   submitCallback,
 } from './domHelpers';
 
-const constants = require('./constants');
+import constants from './constants';
 
 constants.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();

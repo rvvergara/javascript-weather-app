@@ -2,41 +2,25 @@ import {
   format,
 } from 'date-fns';
 import fetchData from './fetchCityData'
-
-
-// NECESSARY DOM ELEMENTS
-
-const tempRadioBtns = [...document.getElementsByName("temp")];
-
-const foreCastDates = [...document.getElementsByClassName("forecast-date")];
-
-const weatherStateImgs = [...document.getElementsByClassName("weather-state")];
-
-const theTemps = [...document.getElementsByClassName("the-temp")];
-
-const minTemps = [...document.getElementsByClassName("min-temp")];
-
-const maxTemps = [...document.getElementsByClassName("max-temp")];
-
-const humidityDisplays = [...document.getElementsByClassName("humidity")];
+import constants from './constants';
 
 const displayElements = {
-  tempRadioBtns,
-  foreCastDates,
-  weatherStateImgs,
-  theTemps,
-  minTemps,
-  maxTemps,
-  humidityDisplays,
+  foreCastDates: constants.foreCastDates,
+  weatherStateImgs: constants.weatherStateImgs,
+  theTemps: constants.theTemps,
+  minTemps: constants.minTemps,
+  maxTemps: constants.maxTemps,
+  humidityDisplays: constants.humidityDisplays,
 };
 
 let tempUnitC = true;
 let fetchedWeatherData;
+
 const toggleTempUnit = () => {
   tempUnitC = !tempUnitC;
 };
 
-tempRadioBtns.forEach((radio) => {
+constants.tempRadioBtns.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     e.stopPropagation();
     toggleTempUnit();
@@ -86,7 +70,7 @@ const weatherCard = (data, index, cardElements) => {
       max_temp,
     },
     cardElements,
-    index, );
+    index);
 
   cardElements.humidityDisplays[index].innerText = Math.round(humidity);
 };
@@ -144,7 +128,7 @@ function fetchCityData(...args) {
   });
 }
 
-const displayErrorMsg = (row, loadDiv, erDiv) => {
+const displayErrorMsg = (row, erDiv, loadDiv) => {
   row.classList.add('invisible');
   loadDiv.classList.add('hidden');
   erDiv.classList.remove('d-none');
