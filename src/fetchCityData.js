@@ -17,34 +17,6 @@ const fetchData = async (city, locationSearchUrl, weatherFetchUrl, property, pro
 async function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property, proxyUrl) {
   // Fetch city
   fetchData(city, locationSearchUrl, weatherFetchUrl, property, proxyUrl).then(data => showData([data.title, data.consolidated_weather.slice(0, 5)]));
-
-  // const woeid = await fetchCity(locationSearchUrl, city, property, proxyUrl);
-
-  // const url = `${proxyUrl}${weatherFetchUrl}${woeid}`;
-
-  // try {
-  //   if (document.getElementsByClassName("animate").length > 0) {
-  //     document.getElementsByClassName("animate")[0].classList.remove("animate");
-  //   }
-  //   // Weather Data proper
-  //   const data = await fetch(url).then((res) => {
-  //     document.getElementById("loading").setAttribute("class", "hidden");
-
-  //     if (document.getElementsByClassName("invisible").length > 0) {
-  //       document.getElementsByClassName("invisible")[0].classList.remove("invisible");
-  //     }
-
-  //     document.getElementsByClassName("row")[0].classList.add("animate");
-  //     return res.json();
-  //   });
-
-  //   // const [weatherToday, day2, day3, day4, day5] = data.consolidated_weather
-
-  //   showData([data.title, data.consolidated_weather.slice(0, 5)]);
-  // } catch (error) {
-  //   displayErrorMsg();
-  // }
-
 };
 
 const displayErrorMsg = () => {
