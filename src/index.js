@@ -4,6 +4,7 @@ import './css/main.css';
 import {
   loading,
   submitCallback,
+  tempDisplays,
 } from './domHelpers';
 
 import {
@@ -11,7 +12,6 @@ import {
   displayElements,
 } from './elements';
 
-// console.log(displayElements);
 
 elements.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -33,4 +33,12 @@ elements.weatherSearchForm.addEventListener("submit", (e) => {
   submitCallback(submitCallbackParams);
   // Remove input text from form
   e.target.reset();
+});
+
+elements.tempRadioBtns.forEach((radio) => {
+  radio.addEventListener("change", (e) => {
+    e.stopPropagation();
+    elements.tempUnitC = !elements.tempUnitC;
+    elements.fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
+  });
 });

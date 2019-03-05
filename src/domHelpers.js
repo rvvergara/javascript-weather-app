@@ -8,14 +8,6 @@ import {
 } from './elements';
 
 
-elements.tempRadioBtns.forEach((radio) => {
-  radio.addEventListener("change", (e) => {
-    e.stopPropagation();
-    elements.tempUnitC = !elements.tempUnitC;
-    elements.fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
-  });
-});
-
 const showData = (dataArr, row, cityName) => {
   [elements.fetchedWeatherData, cityName.innerText] = [dataArr[1], dataArr[0]];
 
@@ -136,4 +128,5 @@ const submitCallback = (argsArr) => {
 export {
   loading,
   submitCallback,
+  tempDisplays,
 };
