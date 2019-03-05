@@ -1,4 +1,6 @@
-const eolocale = require('date-fns/locale/eo');
+import {
+  format,
+} from 'date-fns'
 
 let tempUnitC = true;
 let fetchedWeatherData;
@@ -97,12 +99,8 @@ const tempDisplays = (tempObj, cardElements, index) => {
 const tempToF = temp => (9 / 5) * temp + 32;
 
 const parseDate = date => {
-  const weatherDate = format(
-    new Date(date),
-    'Do [en] dddd');
-  // return `${weatherDate.toDateString()} as of ${weatherDate.toLocaleTimeString()}`;
-  console.log(weatherDate);
-  // return weatherDate;
+  const weatherDate = format(new Date(date), "dddd MM/DD/YYYY");
+  return weatherDate;
 };
 
 const loading = () => {
