@@ -2,8 +2,8 @@ import {
   loading,
 } from './domHelpers';
 
-async function fetchCity(baseUrl, city, property) {
-  const yacdn = `https://yacdn.org/proxy/`;
+async function fetchCity(baseUrl, city, property, proxyUrl) {
+  const yacdn = proxyUrl;
   const url = `${yacdn}${baseUrl}${city.toLowerCase()}`;
 
   const data = await fetch(url).then((result) => {

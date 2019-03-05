@@ -85,8 +85,9 @@ const tempDisplays = (tempObj, cardElements, index) => {
 
   const tempElements = [cardElements.theTemps, cardElements.maxTemps, cardElements.minTemps];
   const tempData = [the_temp, max_temp, min_temp];
-  tempElements.forEach((el) => {
-    el[index].innerHTML = Math.round(tempToF(tempData[index], tempUnitC)) + suffix;
+  console.log(tempData);
+  tempElements.forEach((el, i) => {
+    el[index].innerHTML = Math.round(tempToF(tempData[i], tempUnitC)) + suffix;
   });
 };
 

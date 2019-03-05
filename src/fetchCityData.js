@@ -3,10 +3,9 @@ import {
   showData,
 } from './domHelpers';
 
-async function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property) {
-  const yacdn = `https://yacdn.org/proxy/`;
-  const woeid = await fetchCity(locationSearchUrl, city, property);
-  const url = `${yacdn}${weatherFetchUrl}${woeid}`;
+async function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property, proxyUrl) {
+  const woeid = await fetchCity(locationSearchUrl, city, property, proxyUrl);
+  const url = `${proxyUrl}${weatherFetchUrl}${woeid}`;
 
   try {
     if (document.getElementsByClassName("animate").length > 0) {
