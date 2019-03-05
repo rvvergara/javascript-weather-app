@@ -4,21 +4,21 @@ import {
 import fetchData from './fetchCityData'
 import {
   elements,
-  displayElements
+  displayElements,
 } from './elements';
 
 
 let tempUnitC = true;
 let fetchedWeatherData;
 
-const toggleTempUnit = () => {
-  tempUnitC = !tempUnitC;
+const toggleTempUnit = (isCelsius) => {
+  isCelsius = !isCelsius;
 };
 
 elements.tempRadioBtns.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     e.stopPropagation();
-    toggleTempUnit();
+    toggleTempUnit(tempUnitC);
     fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
   });
 });
