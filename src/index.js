@@ -6,6 +6,8 @@ import {
   loading,
 } from './domHelpers';
 
+const cityNameInput = document.getElementById("cityNameInput");
+
 const cityNameDisplay = document.getElementById('city-name');
 
 const mainDataRow = document.getElementsByClassName("row")[0];
@@ -17,15 +19,17 @@ const corsProxyUrl = `https://yacdn.org/proxy/`;
 document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
   e.preventDefault();
   loading();
-  const mainDataRow = document.getElementsByClassName("row")[0];
-  const cityNameDisplay = document.getElementById('city-name');
-  // Make row invisible again
-  mainDataRow.classList.add("invisible");
-  // Remove animate class animate if any
-  if ([...mainDataRow.classList].includes("animate")) mainDataRow.classList.remove("animate");
-  // If there are any error messages visible just add class d-none to it
-  document.getElementById('error').setAttribute("class", 'd-none');
-  const cityName = document.getElementById("cityNameInput").value;
-  fetchCityData(locationSearchUrl, weatherSearchUrl, cityName, "woeid", corsProxyUrl, mainDataRow, cityNameDisplay);
+  submitCallback(mainDataRow, cityNameDisplay, cityNameInput);
   e.target.reset();
 });
+
+const submitCallback = (row, cityDisplay, input) => {
+  // Make row invisible again
+  row.classList.add("invisible");
+  // Remove animate class animate if any
+  row.classList.remove("animate");
+  // If there are any error messages visible just add class d-none to it
+  document.getElementById('error').setAttribute("class", 'd-none');
+  const cityName = input.value;
+  fetchCityData(locationSearchUrl, weatherSearchUrl, cityName, "woeid", corsProxyUrl, row, cityDisplay);
+}
