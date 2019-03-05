@@ -1,7 +1,9 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/main.css';
-import fetchCityData from './fetchCityData';
+import {
+  fetchCityData,
+} from './domHelpers';
 
 const [weatherSearchUrl, locationSearchUrl] = ["https://www.metaweather.com/api/location/", "https://www.metaweather.com/api/location/search/?query="];
 

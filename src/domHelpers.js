@@ -1,6 +1,7 @@
 import {
   format,
 } from 'date-fns';
+import fetchData from './fetchCityData'
 
 // NECESSARY DOM ELEMENTS
 const tempRadioBtns = [...document.getElementsByName("temp")];
@@ -24,7 +25,7 @@ const displayElements = {
   theTemps,
   minTemps,
   maxTemps,
-  humidityDisplays
+  humidityDisplays,
 };
 
 let tempUnitC = true;
@@ -65,13 +66,15 @@ const weatherCard = (data, index, cardElements) => {
     min_temp,
     max_temp,
     humidity,
-    applicable_date
+    applicable_date,
   } = data;
+
   cardElements.foreCastDates[index].innerText = parseDate(applicable_date, index);
   cardElements.weatherStateImgs[index].setAttribute(
     "src",
     `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`
   );
+
   // Temperature displays
 
   tempDisplays({
@@ -114,8 +117,19 @@ const loading = () => {
   document.getElementById("loading").removeAttribute("class");
 };
 
+function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property, proxyUrl) {
+  // Fetch city
+  fetchData(city, locationSearchUrl, weatherFetchUrl, property, proxyUrl).then(data => showData([data.title, data.consolidated_weather.slice(0, 5)]));
+};
+
+const displayErrorMsg = () => {
+  document.getElementsByClassName('row')[0].classList.add('invisible');
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('error').classList.remove('d-none');
+};
+
 export {
-  showData,
   loading,
   tempDisplays,
+  fetchCityData,
 };
