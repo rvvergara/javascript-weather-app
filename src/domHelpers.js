@@ -2,42 +2,53 @@ import {
   format,
 } from 'date-fns';
 
+// NECESSARY DOM ELEMENTS
+const tempRadioBtns = [...document.getElementsByName("temp")];
+
+const foreCastDates = [...document.getElementsByClassName("forecast-date")];
+
+const weatherStateImgs = [...document.getElementsByClassName("weather-state")];
+
+const theTemps = [...document.getElementsByClassName("the-temp")];
+
+const minTemps = [...document.getElementsByClassName("min-temp")];
+
+const maxTemps = [...document.getElementsByClassName("max-temp")];
+
+const humidityDisplays = [...document.getElementsByClassName("humidity")];
+
+const displayElements = {
+  tempRadioBtns,
+  foreCastDates,
+  weatherStateImgs,
+  theTemps,
+  minTemps,
+  maxTemps,
+  humidityDisplays
+};
+
 let tempUnitC = true;
 let fetchedWeatherData;
 const toggleTempUnit = () => {
   tempUnitC = !tempUnitC;
 };
 
-[...document.getElementsByName("temp")].forEach(radio => {
+tempRadioBtns.forEach(radio => {
   radio.addEventListener("change", e => {
     e.stopPropagation();
     toggleTempUnit();
     fetchedWeatherData.forEach((data, index) =>
-      tempDisplays(data, getCardElements(), index)
+      tempDisplays(data, displayElements, index)
     );
   });
 });
 
-// Function to generate card elements
-
-const getCardElements = () => {
-  return {
-    foreCastDates: [...document.getElementsByClassName("forecast-date")],
-    weatherStateImgs: [...document.getElementsByClassName("weather-state")],
-    theTemps: [...document.getElementsByClassName("the-temp")],
-    minTemps: [...document.getElementsByClassName("min-temp")],
-    maxTemps: [...document.getElementsByClassName("max-temp")],
-    humidityDisplays: [...document.getElementsByClassName("humidity")],
-    unitSpans: [...document.getElementsByClassName("temp-unit")]
-  };
-};
-
-const showData = dataArr => {
+const showData = (dataArr) => {
   // Generate dynamic HTML for big card
   // Assign dataObj elements in DOM
   fetchedWeatherData = dataArr[1];
   document.getElementById("cityName").innerText = dataArr[0];
-  const cardElements = getCardElements();
+  const cardElements = displayElements;
   dataArr[1].forEach((data, index) => {
     weatherCard(data, index, cardElements);
   });
@@ -85,7 +96,6 @@ const tempDisplays = (tempObj, cardElements, index) => {
 
   const tempElements = [cardElements.theTemps, cardElements.maxTemps, cardElements.minTemps];
   const tempData = [the_temp, max_temp, min_temp];
-  console.log(tempData);
   tempElements.forEach((el, i) => {
     el[index].innerHTML = Math.round(tempToF(tempData[i], tempUnitC)) + suffix;
   });
