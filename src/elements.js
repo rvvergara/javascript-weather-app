@@ -32,6 +32,8 @@ const elements = {
   maxTemps: [...document.getElementsByClassName("max-temp")],
 
   humidityDisplays: [...document.getElementsByClassName("humidity")],
+  tempUnitC: true,
+  fetchedWeatherData: "",
 };
 
 const displayElements = {

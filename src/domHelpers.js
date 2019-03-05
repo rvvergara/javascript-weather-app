@@ -8,9 +8,6 @@ import {
 } from './elements';
 
 
-let tempUnitC = true;
-let fetchedWeatherData;
-
 const toggleTempUnit = (isCelsius) => {
   isCelsius = !isCelsius;
 };
@@ -18,13 +15,13 @@ const toggleTempUnit = (isCelsius) => {
 elements.tempRadioBtns.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     e.stopPropagation();
-    toggleTempUnit(tempUnitC);
-    fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
+    toggleTempUnit(elements.tempUnitC);
+    elements.fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
   });
 });
 
 const showData = (dataArr, row, cityName) => {
-  [fetchedWeatherData, cityName.innerText] = [dataArr[1], dataArr[0]];
+  [elements.fetchedWeatherData, cityName.innerText] = [dataArr[1], dataArr[0]];
 
   const cardElements = displayElements;
 
@@ -81,7 +78,7 @@ const tempDisplays = (tempObj, cardElements, index, isCelsius) => {
   const tempElements = [cardElements.theTemps, cardElements.maxTemps, cardElements.minTemps];
   const tempData = [the_temp, max_temp, min_temp];
   tempElements.forEach((el, i) => {
-    el[index].innerHTML = Math.round(tempToF(tempData[i], tempUnitC)) + suffix;
+    el[index].innerHTML = Math.round(tempToF(tempData[i], elements.tempUnitC)) + suffix;
   });
 };
 
