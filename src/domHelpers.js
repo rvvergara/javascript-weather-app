@@ -7,6 +7,8 @@ import fetchData from './fetchCityData'
 // NECESSARY DOM ELEMENTS
 const loadingDiv = document.getElementById("loading");
 
+const cityNameDisplay = document.getElementById('city-name');
+
 const mainDataRow = document.getElementsByClassName("row")[0];
 
 const tempRadioBtns = [...document.getElementsByName("temp")];
@@ -49,11 +51,11 @@ tempRadioBtns.forEach(radio => {
   });
 });
 
-const showData = (dataArr) => {
+const showData = (dataArr, mainDataRow, cityNameDisplay) => {
   // Generate dynamic HTML for big card
   // Assign dataObj elements in DOM
   fetchedWeatherData = dataArr[1];
-  document.getElementById("cityName").innerText = dataArr[0];
+  cityNameDisplay.innerText = dataArr[0];
   const cardElements = displayElements;
 
   // Remove invisible and animate classes
@@ -132,13 +134,18 @@ const loading = () => {
   }
 };
 
-function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property, proxyUrl) {
-  // Fetch city
-  fetchData(city, locationSearchUrl, weatherFetchUrl, property, proxyUrl).then(data => {
+function fetchCityData(...args) {
+  fetchData(...args).then(data => {
+    const [mainDataRow, cityNameDisplay] = [
+      [...args][5],
+      [...args][6]
+    ];
     // Remove fetch data... message
     loading();
     // Fill relevant dom elements with data
-    showData([data.title, data.consolidated_weather.slice(0, 5)]);
+    showData([data.title, data.consolidated_weather.slice(0, 5)], mainDataRow, cityNameDisplay);
+  }).catch(() => {
+    displayErrorMsg();
   });
 };
 

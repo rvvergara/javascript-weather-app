@@ -14,6 +14,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
   e.preventDefault();
   loading();
   const mainDataRow = document.getElementsByClassName("row")[0];
+  const cityNameDisplay = document.getElementById('city-name');
   // Make row invisible again
   mainDataRow.classList.add("invisible");
   // Remove animate class animate if any
@@ -21,6 +22,6 @@ document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
   // If there are any error messages visible just add class d-none to it
   document.getElementById('error').setAttribute("class", 'd-none');
   const cityName = document.getElementById("cityNameInput").value;
-  fetchCityData(locationSearchUrl, weatherSearchUrl, cityName, "woeid", corsProxyUrl);
+  fetchCityData(locationSearchUrl, weatherSearchUrl, cityName, "woeid", corsProxyUrl, mainDataRow, cityNameDisplay);
   e.target.reset();
 });
