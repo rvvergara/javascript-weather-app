@@ -1,4 +1,4 @@
-import 'date-fns';
+const eolocale = require('date-fns/locale/eo');
 
 let tempUnitC = true;
 let fetchedWeatherData;
@@ -54,7 +54,8 @@ const weatherCard = (data, index, cardElements) => {
     humidity,
     applicable_date
   } = data;
-  cardElements.foreCastDates[index].innerText = parseDate(applicable_date);
+  // cardElements.foreCastDates[index].innerText = parseDate(applicable_date);
+  parseDate("2019 March 5");
   cardElements.weatherStateImgs[index].setAttribute(
     "src",
     `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`
@@ -96,8 +97,12 @@ const tempDisplays = (tempObj, cardElements, index) => {
 const tempToF = temp => (9 / 5) * temp + 32;
 
 const parseDate = date => {
-  const weatherDate = new Date(date);
-  return `${weatherDate.toDateString()} as of ${weatherDate.toLocaleTimeString()}`;
+  const weatherDate = format(
+    new Date(date),
+    'Do [en] dddd');
+  // return `${weatherDate.toDateString()} as of ${weatherDate.toLocaleTimeString()}`;
+  console.log(weatherDate);
+  // return weatherDate;
 };
 
 const loading = () => {
