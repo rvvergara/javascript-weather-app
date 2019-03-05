@@ -3,10 +3,10 @@ import {
   showData,
 } from './domHelpers';
 
-async function fetchCityData(city) {
+async function fetchCityData(locationSearchUrl, weatherFetchUrl, city, property) {
   const yacdn = `https://yacdn.org/proxy/`;
-  const woeid = await fetchCity(city);
-  const url = `${yacdn}https://www.metaweather.com/api/location/${woeid}`;
+  const woeid = await fetchCity(locationSearchUrl, city, property);
+  const url = `${yacdn}${weatherFetchUrl}${woeid}`;
 
   try {
     if (document.getElementsByClassName("animate").length > 0) {

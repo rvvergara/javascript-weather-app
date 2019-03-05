@@ -106,5 +106,5 @@ const loading = () => {
 export {
   showData,
   loading,
-  tempDisplays
+  tempDisplays,
 };
