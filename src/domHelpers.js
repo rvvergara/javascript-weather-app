@@ -82,9 +82,12 @@ const tempDisplays = (tempObj, cardElements, index) => {
     max_temp
   } = tempObj;
   const suffix = tempUnitC ? "&#176;C" : "&#176;F";
-  cardElements.theTemps[index].innerHTML = Math.round(tempToF(the_temp, tempUnitC)) + suffix;
-  cardElements.maxTemps[index].innerHTML = Math.round(tempToF(max_temp, tempUnitC)) + suffix;
-  cardElements.minTemps[index].innerHTML = Math.round(tempToF(min_temp, tempUnitC)) + suffix;
+
+  const tempElements = [cardElements.theTemps, cardElements.maxTemps, cardElements.minTemps];
+  const tempData = [the_temp, max_temp, min_temp];
+  tempElements.forEach((el) => {
+    el[index].innerHTML = Math.round(tempToF(tempData[index], tempUnitC)) + suffix;
+  });
 };
 
 const tempToF = (temp, tempUnitC) => {
@@ -92,7 +95,7 @@ const tempToF = (temp, tempUnitC) => {
 };
 
 const parseDate = (date, index) => {
-  const weatherDate = index == 0 ? format(new Date(date), "dddd MMMM DD, YYYY") : format(new Date(date), "dddd");
+  const weatherDate = index === 0 ? format(new Date(date), "dddd MMMM DD, YYYY") : format(new Date(date), "dddd");
   return weatherDate;
 };
 
