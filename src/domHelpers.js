@@ -56,8 +56,7 @@ const weatherCard = (data, index, cardElements) => {
     humidity,
     applicable_date
   } = data;
-  // cardElements.foreCastDates[index].innerText = parseDate(applicable_date);
-  parseDate("2019 March 5");
+  cardElements.foreCastDates[index].innerText = parseDate(applicable_date, index);
   cardElements.weatherStateImgs[index].setAttribute(
     "src",
     `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`
@@ -98,8 +97,8 @@ const tempDisplays = (tempObj, cardElements, index) => {
 
 const tempToF = temp => (9 / 5) * temp + 32;
 
-const parseDate = date => {
-  const weatherDate = format(new Date(date), "dddd MM/DD/YYYY");
+const parseDate = (date, index) => {
+  const weatherDate = index == 0 ? format(new Date(date), "dddd MMMM DD, YYYY HH:mm A") : format(new Date(date), "dddd");
   return weatherDate;
 };
 
