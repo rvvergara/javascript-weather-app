@@ -1,4 +1,6 @@
-import 'date-fns';
+import {
+  format,
+} from 'date-fns'
 
 let tempUnitC = true;
 let fetchedWeatherData;
@@ -96,8 +98,8 @@ const tempDisplays = (tempObj, cardElements, index) => {
 const tempToF = temp => (9 / 5) * temp + 32;
 
 const parseDate = date => {
-  const weatherDate = new Date(date);
-  return `${weatherDate.toDateString()} as of ${weatherDate.toLocaleTimeString()}`;
+  const weatherDate = format(new Date(date), "dddd MM/DD/YYYY");
+  return weatherDate;
 };
 
 const loading = () => {
