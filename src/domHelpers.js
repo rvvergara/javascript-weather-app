@@ -1,6 +1,6 @@
 import {
   format,
-} from 'date-fns'
+} from 'date-fns';
 
 let tempUnitC = true;
 let fetchedWeatherData;
