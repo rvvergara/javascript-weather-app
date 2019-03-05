@@ -5,7 +5,7 @@ import fetchData from './fetchCityData'
 
 
 // NECESSARY DOM ELEMENTS
-const loadingDiv = document.getElementById("loading");
+
 
 const tempRadioBtns = [...document.getElementsByName("temp")];
 
@@ -116,44 +116,50 @@ const parseDate = (date, index) => {
   return weatherDate;
 };
 
-const loading = () => {
-  if ([...loadingDiv.classList].includes("hidden")) {
-    loadingDiv.classList.remove("hidden");
+const loading = (loadDiv) => {
+  if ([...loadDiv.classList].includes("hidden")) {
+    loadDiv.classList.remove("hidden");
   } else {
-    loadingDiv.classList.add("hidden");
+    loadDiv.classList.add("hidden");
   }
 };
 
 function fetchCityData(...args) {
   fetchData(...args).then((data) => {
-    const [row, cityName] = [
+    const [row, cityName, loadDiv] = [
       [...args][5],
       [...args][6],
+      [...args][8],
     ];
     // Remove fetch data... message
-    loading();
+    loading(loadDiv);
     // Fill relevant dom elements with data
     showData([data.title, data.consolidated_weather.slice(0, 5)], row, cityName);
   }).catch(() => {
-    displayErrorMsg();
+    const [row, erDiv, loadDiv] = [
+      [...args][5],
+      [...args][7],
+      [...args][8],
+    ];
+    displayErrorMsg(row, erDiv, loadDiv);
   });
 }
 
-const displayErrorMsg = () => {
-  document.getElementsByClassName('row')[0].classList.add('invisible');
-  document.getElementById('loading').classList.add('hidden');
-  document.getElementById('error').classList.remove('d-none');
+const displayErrorMsg = (row, loadDiv, erDiv) => {
+  row.classList.add('invisible');
+  loadDiv.classList.add('hidden');
+  erDiv.classList.remove('d-none');
 };
 
 const submitCallback = (argsArr) => {
-  const [row, cityDisplay, input, locUrl, weatherUrl, locProp, proxyUrl, errDiv] = argsArr;
+  const [row, cityDisplay, input, locUrl, weatherUrl, locProp, proxyUrl, errDiv, loadDiv] = argsArr;
   // Make row invisible again
   row.classList.add("invisible");
   // Remove animate class animate if any
   row.classList.remove("animate");
   // If there are any error messages visible just add class d-none to it
   errDiv.setAttribute("class", 'd-none');
-  fetchCityData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay);
+  fetchCityData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay, errDiv, loadDiv);
 };
 
 export {
