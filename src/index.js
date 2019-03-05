@@ -5,9 +5,9 @@ import fetchCityData from './fetchCityData';
 
 document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
   e.preventDefault();
+  // If there are any error messages visible just add class d-none to it
   document.getElementById('error').setAttribute("class", 'd-none');
   const cityName = document.getElementById("cityNameInput").value;
   fetchCityData(cityName);
-  // Remove invisible class
   e.target.reset();
 });

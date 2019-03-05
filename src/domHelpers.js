@@ -1,8 +1,20 @@
+import 'date-fns';
+
 let tempUnitC = true;
 let fetchedWeatherData;
 const toggleTempUnit = () => {
   tempUnitC = !tempUnitC;
-}
+};
+
+[...document.getElementsByName("temp")].forEach(radio => {
+  radio.addEventListener("change", e => {
+    e.stopPropagation();
+    toggleTempUnit();
+    fetchedWeatherData.forEach((data, index) =>
+      tempDisplays(data, getCardElements(), index)
+    );
+  });
+});
 
 // Function to generate card elements
 
@@ -14,20 +26,11 @@ const getCardElements = () => {
     minTemps: [...document.getElementsByClassName("min-temp")],
     maxTemps: [...document.getElementsByClassName("max-temp")],
     humidityDisplays: [...document.getElementsByClassName("humidity")],
-    unitSpans: [...document.getElementsByClassName("temp-unit")],
+    unitSpans: [...document.getElementsByClassName("temp-unit")]
   };
 };
 
-[...document.getElementsByName("temp")].forEach(radio => {
-  radio.addEventListener("change", e => {
-    e.stopPropagation();
-    toggleTempUnit();
-    fetchedWeatherData.forEach((data, index) => tempDisplays(data, getCardElements(), index));
-  });
-});
-
-
-const showData = (dataArr) => {
+const showData = dataArr => {
   // Generate dynamic HTML for big card
   // Assign dataObj elements in DOM
   fetchedWeatherData = dataArr[1];
@@ -49,17 +52,23 @@ const weatherCard = (data, index, cardElements) => {
     min_temp,
     max_temp,
     humidity,
-    applicable_date,
+    applicable_date
   } = data;
   cardElements.foreCastDates[index].innerText = parseDate(applicable_date);
-  cardElements.weatherStateImgs[index].setAttribute("src", `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`);
+  cardElements.weatherStateImgs[index].setAttribute(
+    "src",
+    `https://www.metaweather.com/static/img/weather/png/${weather_state_abbr}.png`
+  );
   // Temperature displays
 
   tempDisplays({
-    the_temp,
-    min_temp,
-    max_temp,
-  }, cardElements, index);
+      the_temp,
+      min_temp,
+      max_temp
+    },
+    cardElements,
+    index
+  );
 
   cardElements.humidityDisplays[index].innerText = Math.round(humidity);
 };
@@ -68,7 +77,7 @@ const tempDisplays = (tempObj, cardElements, index) => {
   const {
     the_temp,
     min_temp,
-    max_temp,
+    max_temp
   } = tempObj;
   if (tempUnitC) {
     let suffix = "&#176;C";
@@ -77,17 +86,18 @@ const tempDisplays = (tempObj, cardElements, index) => {
     cardElements.minTemps[index].innerText = Math.round(min_temp);
   } else {
     let suffix = "&#176;F";
-    cardElements.theTemps[index].innerHTML = Math.round(tempToF(the_temp)) + suffix;
+    cardElements.theTemps[index].innerHTML =
+      Math.round(tempToF(the_temp)) + suffix;
     cardElements.maxTemps[index].innerText = Math.round(tempToF(max_temp));
     cardElements.minTemps[index].innerText = Math.round(tempToF(min_temp));
   }
 };
 
-const tempToF = temp => 9 / 5 * (temp) + 32;
+const tempToF = temp => (9 / 5) * temp + 32;
 
-const parseDate = (date) => {
+const parseDate = date => {
   const weatherDate = new Date(date);
-  return `${weatherDate.toDateString()} ${weatherDate.getHours()}:${weatherDate.getMinutes()}`
+  return `${weatherDate.toDateString()} as of ${weatherDate.toLocaleTimeString()}`;
 };
 
 const loading = () => {
