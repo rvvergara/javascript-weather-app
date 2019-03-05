@@ -145,8 +145,18 @@ const displayErrorMsg = () => {
   document.getElementById('error').classList.remove('d-none');
 };
 
+const submitCallback = (argsArr) => {
+  const [row, cityDisplay, input, locUrl, weatherUrl, locProp, proxyUrl, errDiv] = argsArr;
+  // Make row invisible again
+  row.classList.add("invisible");
+  // Remove animate class animate if any
+  row.classList.remove("animate");
+  // If there are any error messages visible just add class d-none to it
+  errDiv.setAttribute("class", 'd-none');
+  fetchCityData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay);
+};
+
 export {
   loading,
-  tempDisplays,
-  fetchCityData,
+  submitCallback,
 };

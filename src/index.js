@@ -2,11 +2,15 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/main.css';
 import {
-  fetchCityData,
   loading,
+  submitCallback,
 } from './domHelpers';
 
 const cityNameInput = document.getElementById("cityNameInput");
+
+const weatherSearchForm = document.getElementsByTagName("form")[0];
+
+const errorDiv = document.getElementById('error');
 
 const cityNameDisplay = document.getElementById('city-name');
 
@@ -16,20 +20,23 @@ const [weatherSearchUrl, locationSearchUrl] = ["https://www.metaweather.com/api/
 
 const corsProxyUrl = `https://yacdn.org/proxy/`;
 
-document.getElementsByTagName("form")[0].addEventListener("submit", (e) => {
+weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  // Show fetching weather data text
   loading();
-  submitCallback(mainDataRow, cityNameDisplay, cityNameInput);
+  // Parameters passed to callback
+  const submitCallbackParams = [
+    mainDataRow,
+    cityNameDisplay,
+    cityNameInput,
+    locationSearchUrl,
+    weatherSearchUrl,
+    "woeid",
+    corsProxyUrl,
+    errorDiv
+  ];
+
+  submitCallback(submitCallbackParams);
+  // Remove input text from form
   e.target.reset();
 });
-
-const submitCallback = (row, cityDisplay, input) => {
-  // Make row invisible again
-  row.classList.add("invisible");
-  // Remove animate class animate if any
-  row.classList.remove("animate");
-  // If there are any error messages visible just add class d-none to it
-  document.getElementById('error').setAttribute("class", 'd-none');
-  const cityName = input.value;
-  fetchCityData(locationSearchUrl, weatherSearchUrl, cityName, "woeid", corsProxyUrl, row, cityDisplay);
-}
