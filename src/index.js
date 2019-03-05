@@ -6,7 +6,12 @@ import {
   submitCallback,
 } from './domHelpers';
 
-import elements from './elements';
+import {
+  elements,
+  displayElements,
+} from './elements';
+
+// console.log(displayElements);
 
 elements.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();

@@ -2,16 +2,11 @@ import {
   format,
 } from 'date-fns';
 import fetchData from './fetchCityData'
-import elements from './elements';
+import {
+  elements,
+  displayElements
+} from './elements';
 
-const displayElements = {
-  foreCastDates: elements.foreCastDates,
-  weatherStateImgs: elements.weatherStateImgs,
-  theTemps: elements.theTemps,
-  minTemps: elements.minTemps,
-  maxTemps: elements.maxTemps,
-  humidityDisplays: elements.humidityDisplays,
-};
 
 let tempUnitC = true;
 let fetchedWeatherData;
