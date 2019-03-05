@@ -1,4 +1,4 @@
-const constants = {
+const elements = {
   weatherSearchForm: document.getElementsByTagName("form")[0],
   cityNameInput: document.getElementById("cityNameInput"),
 
@@ -34,4 +34,4 @@ const constants = {
   humidityDisplays: [...document.getElementsByClassName("humidity")],
 };
 
-export default constants;
+export default elements;

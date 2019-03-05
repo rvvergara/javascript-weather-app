@@ -6,23 +6,23 @@ import {
   submitCallback,
 } from './domHelpers';
 
-import constants from './constants';
+import elements from './elements';
 
-constants.weatherSearchForm.addEventListener("submit", (e) => {
+elements.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // Show fetching weather data text
-  loading(constants.loadingDiv);
+  loading(elements.loadingDiv);
   // Parameters passed to callback
   const submitCallbackParams = [
-    constants.mainDataRow,
-    constants.cityNameDisplay,
-    constants.cityNameInput,
-    constants.locationSearchUrl,
-    constants.weatherSearchUrl,
+    elements.mainDataRow,
+    elements.cityNameDisplay,
+    elements.cityNameInput,
+    elements.locationSearchUrl,
+    elements.weatherSearchUrl,
     "woeid",
-    constants.corsProxyUrl,
-    constants.errorDiv,
-    constants.loadingDiv,
+    elements.corsProxyUrl,
+    elements.errorDiv,
+    elements.loadingDiv,
   ];
 
   submitCallback(submitCallbackParams);

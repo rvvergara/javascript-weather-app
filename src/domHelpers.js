@@ -2,15 +2,15 @@ import {
   format,
 } from 'date-fns';
 import fetchData from './fetchCityData'
-import constants from './constants';
+import elements from './elements';
 
 const displayElements = {
-  foreCastDates: constants.foreCastDates,
-  weatherStateImgs: constants.weatherStateImgs,
-  theTemps: constants.theTemps,
-  minTemps: constants.minTemps,
-  maxTemps: constants.maxTemps,
-  humidityDisplays: constants.humidityDisplays,
+  foreCastDates: elements.foreCastDates,
+  weatherStateImgs: elements.weatherStateImgs,
+  theTemps: elements.theTemps,
+  minTemps: elements.minTemps,
+  maxTemps: elements.maxTemps,
+  humidityDisplays: elements.humidityDisplays,
 };
 
 let tempUnitC = true;
@@ -20,7 +20,7 @@ const toggleTempUnit = () => {
   tempUnitC = !tempUnitC;
 };
 
-constants.tempRadioBtns.forEach((radio) => {
+elements.tempRadioBtns.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     e.stopPropagation();
     toggleTempUnit();
