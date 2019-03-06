@@ -1,0 +1,17 @@
+mixin card(index)
+        div.col
+          - var titleClass = index == 1 ? 'card-title': 'card-title border-bottom' ;
+          div(class=titleClass)
+            if index == 1
+              h5#city-name
+            p.forecast-date
+        - var weatherClass = index == 1 ? 'today-weather': 'next-weather' ;
+          div(class=weatherClass)
+            img(src="https://www.metaweather.com/static/img/weather/png/lc.png" class="float-left w-25 weather-state")
+            if index == 1
+              include tempRadioBtns
+        div.col
+          ul.list-group
+            each val, index in {1: {text:'Max Temp', class: 'max-temp'}, 2: {text: 'Min Temp', class:'min-temp'}, 3: {text:'Relative Humidity', class:'humidity'}}
+              li.list-group-item= val.text
+                span(class=val.class)

@@ -1,0 +1,18 @@
+include cards
+
+div(class="row")
+  //- Present day forecast column - occupies 12
+  div(class="col-md-12 mb-2" id="todayForeCast")
+    div.card
+      div.card-body
+        div.row
+          +card(1)
+
+  //- Next 4 days' weather
+  each id, index in {2: 'day2ForeCast', 3: 'day3ForeCast', 4:'day4ForeCast', 5:'day5ForeCast'}
+      div(class="col-md-3" id=id)
+        div.card.next-weather-card
+          div.card-body
+            div.row.d-flex.flex-column
+              +card(index)
+

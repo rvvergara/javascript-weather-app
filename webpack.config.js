@@ -1,9 +1,10 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: "./src/js/index.js",
   output: {
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
   module: {
@@ -15,6 +16,17 @@ module.exports = {
         test: /\.css$/,
         loader: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.pug$/,
+        use: ['html-loader?attrs=false', 'pug-html-loader'],
+      },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/pugs/index.pug',
+      inject: false,
+    }),
+  ],
 };
