@@ -9,7 +9,7 @@ const addEventListeners = () => {
   elements.weatherSearchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     // Show fetching weather data text
-    elements.loadingDiv.classList.remove("hidden");
+    elements.loadingDiv.classList.remove("d-none");
     // Parameters passed to callback packaged into an array
     const submitCallbackParams = [
       elements.mainDataRow,

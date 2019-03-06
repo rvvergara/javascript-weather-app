@@ -20,6 +20,12 @@ module.exports = {
         test: /\.pug$/,
         use: ['html-loader?attrs=false', 'pug-html-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      }
     ],
   },
   plugins: [

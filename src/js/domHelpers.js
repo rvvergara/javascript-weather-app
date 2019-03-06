@@ -92,7 +92,7 @@ function fetchAndShowData(...args) {
         [...args][9],
       ];
       // Remove fetch data... message
-      loadDiv.classList.add("hidden");
+      loadDiv.classList.add("d-none");
       // Fill relevant dom elements with data
       showData([data.title, data.consolidated_weather.slice(0, 5)], row, cityName, tempStatusProperty);
     })
@@ -112,7 +112,7 @@ const displayErrorMsg = (row, erDiv, loadDiv) => {
   // valid city's data
   row.classList.add('invisible');
   // Hide loading div
-  loadDiv.classList.add('hidden');
+  loadDiv.classList.add('d-none');
   erDiv.classList.remove('d-none');
 };
 
