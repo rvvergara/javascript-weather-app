@@ -1,51 +1,52 @@
-const elements = {
-  weatherSearchForm: document.getElementsByTagName("form")[0],
-  cityNameInput: document.getElementById("cityNameInput"),
+const elements = (() => {
+  const weatherSearchForm = document.getElementsByTagName("form")[0];
+  const cityNameInput = document.getElementById("cityNameInput");
+  const loadingDiv = document.getElementById("loading");
+  const errorDiv = document.getElementById('error');
+  const mainDataRow = document.getElementsByClassName("row")[0];
+  const cityNameDisplay = document.getElementById('city-name');
+  const weatherSearchUrl = "https://www.metaweather.com/api/location/";
+  const locationSearchUrl = "https://www.metaweather.com/api/location/search/?query=";
+  const corsProxyUrl = `https://yacdn.org/proxy/`;
 
-  loadingDiv: document.getElementById("loading"),
+  const tempRadioBtns = [...document.getElementsByName("temp")];
+  const foreCastDates = [...document.getElementsByClassName("forecast-date")];
+  const weatherStateImgs = [...document.getElementsByClassName("weather-state")];
+  const theTemps = [...document.getElementsByClassName("the-temp")];
+  const minTemps = [...document.getElementsByClassName("min-temp")];
+  const maxTemps = [...document.getElementsByClassName("max-temp")];
+  const humidityDisplays = [...document.getElementsByClassName("humidity")];
 
-  errorDiv: document.getElementById('error'),
+  let tempUnitC = true;
+  let fetchedWeatherData = "";
 
-  mainDataRow: document.getElementsByClassName("row")[0],
+  return {
+    weatherSearchForm,
+    cityNameInput,
+    loadingDiv,
+    errorDiv,
+    mainDataRow,
+    cityNameDisplay,
+    weatherSearchUrl,
+    locationSearchUrl,
+    corsProxyUrl,
+    tempRadioBtns,
+    foreCastDates,
+    weatherStateImgs,
+    theTemps,
+    minTemps,
+    maxTemps,
+    humidityDisplays,
+    tempUnitC,
+    fetchedWeatherData,
+    tempToggle() {
+      this.tempUnitC = !this.tempUnitC;
+    },
+    fetchedWeatherSet(data = "") {
+      data !== "" ? fetchedWeatherData = data : undefined;
+      return fetchedWeatherData;
+    },
+  };
+})();
 
-  cityNameDisplay: document.getElementById('city-name'),
-
-  weatherSearchUrl: "https://www.metaweather.com/api/location/",
-
-  locationSearchUrl: "https://www.metaweather.com/api/location/search/?query=",
-
-  corsProxyUrl: `https://yacdn.org/proxy/`,
-
-
-  // ....................................
-
-  tempRadioBtns: [...document.getElementsByName("temp")],
-
-  foreCastDates: [...document.getElementsByClassName("forecast-date")],
-
-  weatherStateImgs: [...document.getElementsByClassName("weather-state")],
-
-  theTemps: [...document.getElementsByClassName("the-temp")],
-
-  minTemps: [...document.getElementsByClassName("min-temp")],
-
-  maxTemps: [...document.getElementsByClassName("max-temp")],
-
-  humidityDisplays: [...document.getElementsByClassName("humidity")],
-  tempUnitC: true,
-  fetchedWeatherData: "",
-};
-
-const displayElements = {
-  foreCastDates: elements.foreCastDates,
-  weatherStateImgs: elements.weatherStateImgs,
-  theTemps: elements.theTemps,
-  minTemps: elements.minTemps,
-  maxTemps: elements.maxTemps,
-  humidityDisplays: elements.humidityDisplays,
-};
-
-export {
-  elements,
-  displayElements,
-};
+export default elements;

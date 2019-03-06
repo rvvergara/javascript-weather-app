@@ -7,13 +7,11 @@ import {
   tempDisplays,
 } from './domHelpers';
 
-import {
-  elements,
-  displayElements,
-} from './elements';
+import elements from './elements';
 
 elements.weatherSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  console.log("Updated");
   // Show fetching weather data text
   loading(elements.loadingDiv);
   // Parameters passed to callback
@@ -27,6 +25,7 @@ elements.weatherSearchForm.addEventListener("submit", (e) => {
     elements.corsProxyUrl,
     elements.errorDiv,
     elements.loadingDiv,
+    "tempUnitC",
   ];
 
   submitCallback(submitCallbackParams);
@@ -37,7 +36,7 @@ elements.weatherSearchForm.addEventListener("submit", (e) => {
 elements.tempRadioBtns.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     e.stopPropagation();
-    elements.tempUnitC = !elements.tempUnitC;
-    elements.fetchedWeatherData.forEach((data, index) => tempDisplays(data, displayElements, index));
+    elements.tempToggle();
+    elements.fetchedWeatherSet().forEach((data, index) => tempDisplays(data, elements, index, elements.tempUnitC));
   });
 });

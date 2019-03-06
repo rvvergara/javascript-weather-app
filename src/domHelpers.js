@@ -2,30 +2,30 @@ import {
   format,
 } from 'date-fns';
 import fetchData from './fetchCityData'
-import {
-  elements,
-  displayElements,
-} from './elements';
+import elements from './elements';
 
 
-const showData = (dataArr, row, cityName) => {
-  [elements.fetchedWeatherData, cityName.innerText] = [dataArr[1], dataArr[0]];
+const showData = (dataArr, row, cityName, tempStatusProperty) => {
 
-  const cardElements = displayElements;
+  [cityName.innerText] = [dataArr[0]];
+
+  elements.fetchedWeatherSet(dataArr[1]);
+
+  const cardElements = elements;
 
   // Remove invisible and animate classes
   row.classList.remove("invisible");
 
   row.classList.add("animate");
   dataArr[1].forEach((data, index) => {
-    weatherCard(data, index, cardElements);
+    weatherCard(data, index, cardElements, tempStatusProperty);
   });
 };
 
 // We need a function that generates the html structure for the data
 
 // 1. For the big card
-const weatherCard = (data, index, cardElements) => {
+const weatherCard = (data, index, cardElements, tempStatusProperty) => {
   // We need to extract elements from data that we need
   const {
     weather_state_abbr,
@@ -50,7 +50,8 @@ const weatherCard = (data, index, cardElements) => {
       max_temp,
     },
     cardElements,
-    index);
+    index,
+    cardElements[tempStatusProperty]);
 
   cardElements.humidityDisplays[index].innerText = Math.round(humidity);
 };
@@ -62,7 +63,6 @@ const tempDisplays = (tempObj, cardElements, index, isCelsius) => {
     max_temp,
   } = tempObj;
   const suffix = isCelsius ? "&#176;C" : "&#176;F";
-
   const tempElements = [cardElements.theTemps, cardElements.maxTemps, cardElements.minTemps];
   const tempData = [the_temp, max_temp, min_temp];
   tempElements.forEach((el, i) => {
@@ -89,23 +89,26 @@ const loading = (loadDiv) => {
 
 function fetchAndShowData(...args) {
   fetchData(...args).then((data) => {
-    const [row, cityName, loadDiv] = [
-      [...args][5],
-      [...args][6],
-      [...args][8],
-    ];
-    // Remove fetch data... message
-    loading(loadDiv);
-    // Fill relevant dom elements with data
-    showData([data.title, data.consolidated_weather.slice(0, 5)], row, cityName);
-  }).catch(() => {
-    const [row, erDiv, loadDiv] = [
-      [...args][5],
-      [...args][7],
-      [...args][8],
-    ];
-    displayErrorMsg(row, erDiv, loadDiv);
-  });
+      const [row, cityName, loadDiv, tempStatusProperty] = [
+        [...args][5],
+        [...args][6],
+        [...args][8],
+        [...args][9],
+      ];
+      // Remove fetch data... message
+      loading(loadDiv);
+      // Fill relevant dom elements with data
+      showData([data.title, data.consolidated_weather.slice(0, 5)], row, cityName, tempStatusProperty);
+    })
+    .catch((err) => {
+      const [row, erDiv, loadDiv] = [
+        [...args][5],
+        [...args][7],
+        [...args][8],
+      ];
+      displayErrorMsg(row, erDiv, loadDiv);
+      console.log(err);
+    });
 }
 
 const displayErrorMsg = (row, erDiv, loadDiv) => {
@@ -115,14 +118,14 @@ const displayErrorMsg = (row, erDiv, loadDiv) => {
 };
 
 const submitCallback = (argsArr) => {
-  const [row, cityDisplay, input, locUrl, weatherUrl, locProp, proxyUrl, errDiv, loadDiv] = argsArr;
+  const [row, cityDisplay, input, locUrl, weatherUrl, locProp, proxyUrl, errDiv, loadDiv, tempStatusProperty] = argsArr;
   // Make row invisible again
   row.classList.add("invisible");
   // Remove animate class animate if any
   row.classList.remove("animate");
   // If there are any error messages visible just add class d-none to it
   errDiv.setAttribute("class", 'd-none');
-  fetchAndShowData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay, errDiv, loadDiv);
+  fetchAndShowData(locUrl, weatherUrl, input.value, locProp, proxyUrl, row, cityDisplay, errDiv, loadDiv, tempStatusProperty);
 };
 
 export {
