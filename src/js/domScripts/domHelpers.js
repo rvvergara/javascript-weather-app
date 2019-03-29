@@ -1,7 +1,7 @@
 import {
   format,
 } from 'date-fns';
-import fetchData from './fetchData'
+import fetchData from '../fetchData';
 import elements from './elements';
 
 const showData = (dataArr, row, cityName, tempStatusProperty) => {
